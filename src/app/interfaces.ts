@@ -1,13 +1,13 @@
 export interface Database {
   title:     string;
-  data:      Catalogue[];
+  data:      Category[];
   photo:     string;
   etaRange:  string;
   location:  string;
   fareBadge: string;
 }
 
-export interface Catalogue {
+export interface Category {
   itemUuids:   string[];
   title:       string;
   uuid:        string;
