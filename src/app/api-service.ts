@@ -7,3 +7,7 @@ export const getRecipes = async (): Promise<Category[]> => {
   const result = json.data;
   return result;
 };
+
+export const sendOrder = async (order: any) => {
+  console.log('Order send to database...', order);
+}
