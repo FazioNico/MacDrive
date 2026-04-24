@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
+import { Category } from '../../interfaces';
+import { getRecipes } from '../../api-service';
 
 @Component({
   selector: 'app-order-page',
@@ -6,4 +8,11 @@ import { Component } from '@angular/core';
   templateUrl: './order-page.html',
   styleUrl: './order-page.css',
 })
-export class OrderPage {}
+export class OrderPage implements OnInit {
+  protected readonly categories = signal<Category[]>([]);
+
+  async ngOnInit() {
+    const data = await getRecipes();
+    this.categories.update(()=> data);
+  }
+}

@@ -1,9 +1,21 @@
 <div>
   <h1>Categories</h1>
+  <ul>
+    @for (category of categories(); track category.uuid) {
+      <li>{{ category.title }}</li>
+    }
+  </ul>
 </div>
 
 <div>
   <h1>Recipes</h1>
+  @for (category of categories(); track category.uuid) {
+    <ul>
+      @for (recipe of category.recipes; track recipe.uuid) {
+        <li>{{ recipe.title }}</li>
+      }
+    </ul>
+  }
 </div>
 
 <div>
