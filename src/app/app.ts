@@ -4,10 +4,10 @@ import { OrderPage } from './pages/order-page/order-page';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, OrderPage],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('MacDrive');
+  public readonly title = signal('MacDrive');
 }
