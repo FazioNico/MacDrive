@@ -4,14 +4,14 @@
   <h1>Categories</h1>
   <ul>
     @for (category of categories();let i = $index; track i) {
-      <li>{{ category.title }}</li>
+      <li (click)="selectedCategoryUuid.set(category.uuid)">{{ category.title }}</li>
     }
   </ul>
 </div>
 
 <div>
   <h1>Recipes</h1>
-  @for (category of categories(); track category.uuid) {
+  @for (category of categorieDisplayed(); track category.uuid) {
     <ul>
       @for (recipe of category.recipes; track recipe.uuid) {
         <li (click)="addRecipe(recipe.uuid)">

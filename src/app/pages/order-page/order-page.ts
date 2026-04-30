@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ApiService } from '../../services/api-service/api-service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import {
@@ -20,6 +20,14 @@ import { minPriceValidator } from '../../validators/min-price/min-price.validato
 export class OrderPage implements OnInit {
   protected readonly categories = inject(ApiService).categories;
   protected readonly route = inject(ActivatedRoute);
+  protected readonly categorieDisplayed = computed(() => {
+    const selectedCategoryUuid = this.selectedCategoryUuid();
+    if (!selectedCategoryUuid) {
+      return this.categories();
+    }
+    return this.categories().filter(category => category.uuid === selectedCategoryUuid);
+  });
+  protected readonly selectedCategoryUuid = signal<string|null>(null);
   protected readonly orderForm = new FormGroup({
     createAt: new FormControl(''),
     recipes: new FormArray([], Validators.compose([
