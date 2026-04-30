@@ -2,6 +2,7 @@ import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { ApiService } from '../../services/api-service/api-service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import {
+  AbstractControl,
   FormArray,
   FormControl,
   FormGroup,
@@ -9,11 +10,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { minPriceValidator } from '../../validators/min-price/min-price.validator';
+import { TotalItemPipe } from '../../pipes/total-item/total-item-pipe';
 
 
 @Component({
   selector: 'app-order-page',
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, TotalItemPipe],
   templateUrl: './order-page.html',
   styleUrl: './order-page.css',
 })
@@ -30,7 +32,12 @@ export class OrderPage implements OnInit {
   protected readonly selectedCategoryUuid = signal<string|null>(null);
   protected readonly orderForm = new FormGroup({
     createAt: new FormControl(''),
-    recipes: new FormArray([], Validators.compose([
+    recipes: new FormArray<AbstractControl<{
+      uuid: string;
+      title: string;
+      price: number;
+      count: number;
+    }>>([], Validators.compose([
       Validators.required,
       Validators.minLength(1),
       minPriceValidator(10), // custom validator to check if total price is at least 10

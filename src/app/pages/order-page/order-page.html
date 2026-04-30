@@ -15,7 +15,7 @@
     <ul>
       @for (recipe of category.recipes; track recipe.uuid) {
         <li (click)="addRecipe(recipe.uuid)">
-          {{ recipe.title }} - {{ recipe.price }}
+          {{ recipe.title }} - {{ recipe.price }} - Quantity: {{ recipe | totalItem: orderForm.value }}
         </li>
       }
     </ul>
