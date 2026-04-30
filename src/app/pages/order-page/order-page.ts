@@ -69,6 +69,14 @@ export class OrderPage implements OnInit {
 
     console.log(this.orderForm.value, this.orderForm.valid);
   }
+
+  submitOrder() {
+    this.orderForm.patchValue({
+      createAt: new Date().toISOString(),
+    });
+    alert('Order submitted! Check console for order details.');
+    console.log(this.orderForm.value, this.orderForm.valid);
+  }
 }
 
 

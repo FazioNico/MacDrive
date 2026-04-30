@@ -23,5 +23,5 @@
 </div>
 
 <div>
-  <button [disabled]="!orderForm.valid">Order Now</button>
+  <button [disabled]="!orderForm.valid" (click)="submitOrder()">Order Now</button>
 </div>
