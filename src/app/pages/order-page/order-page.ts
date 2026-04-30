@@ -1,8 +1,14 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { Category } from '../../interfaces';
+import { Component, inject, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api-service/api-service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { minPriceValidator } from '../../validators/min-price/min-price.validator';
 
 
 @Component({
@@ -19,7 +25,7 @@ export class OrderPage implements OnInit {
     recipes: new FormArray([], Validators.compose([
       Validators.required,
       Validators.minLength(1),
-      // TODO: add custom validator to check if total order price is greater than 10 CHF
+      minPriceValidator(10), // custom validator to check if total price is at least 10
     ])),
   });
 
@@ -53,6 +59,8 @@ export class OrderPage implements OnInit {
       }));
     }
 
-    console.log(this.orderForm.value);
+    console.log(this.orderForm.value, this.orderForm.valid);
   }
 }
+
+
