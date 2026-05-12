@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Auth, authState } from '@angular/fire/auth';
-import { addDoc, collection, Firestore } from '@angular/fire/firestore';
-import { firstValueFrom } from 'rxjs';
+import { addDoc, collection, collectionData, Firestore } from '@angular/fire/firestore';
+import { firstValueFrom, Observable } from 'rxjs';
 
 export interface OrderDataInterface {
   createAt: string;
@@ -27,5 +27,11 @@ export class FireService {
     const colRef = collection(this._cloudStorage, `macdrive-orders`);
     const result = await addDoc(colRef, {...data, uid: user?.uid});
     return result;
+  }
+
+  loadOrders() {
+    const colRef = collection(this._cloudStorage, `macdrive-orders`);
+    const data = collectionData(colRef, {idField: '_id'}) as Observable<OrderDataInterface[]>;
+    return data;
   }
 }
