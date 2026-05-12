@@ -12,11 +12,13 @@ import {
 import { minPriceValidator } from '../../validators/min-price/min-price.validator';
 import { TotalItemPipe } from '../../pipes/total-item/total-item-pipe';
 import { FireService, OrderDataInterface } from '../../services/fire/fire-service';
+import { TotalOrderPipe } from '../../pipes/total-order/total-order-pipe';
+import { CurrencyPipe } from '@angular/common';
 
 
 @Component({
   selector: 'app-order-page',
-  imports: [RouterLink, ReactiveFormsModule, TotalItemPipe],
+  imports: [RouterLink, ReactiveFormsModule, TotalItemPipe, TotalOrderPipe, CurrencyPipe],
   templateUrl: './order-page.html',
   styleUrl: './order-page.css',
 })
@@ -33,7 +35,7 @@ export class OrderPage implements OnInit {
   });
   protected readonly selectedCategoryUuid = signal<string|null>(null);
   protected readonly orderForm = new FormGroup({
-    createAt: new FormControl(''),
+    createAt: new FormControl<string>(''),
     recipes: new FormArray<AbstractControl<{
       uuid: string;
       title: string;

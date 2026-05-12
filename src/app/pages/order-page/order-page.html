@@ -23,5 +23,7 @@
 </div>
 
 <div>
-  <button [disabled]="!orderForm.valid" (click)="submitOrder()">Order Now</button>
+  <button [disabled]="!orderForm.valid" (click)="submitOrder()">
+    Order Now - {{ $any(orderForm.value) | totalOrder | currency: 'CHF ': 'symbol' : '1.2-2' }}
+  </button>
 </div>
