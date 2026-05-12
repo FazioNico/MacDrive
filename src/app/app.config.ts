@@ -1,4 +1,4 @@
-import { ApplicationConfig, ErrorHandler, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { ApplicationConfig, ErrorHandler, inject, provideAppInitializer, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -8,6 +8,7 @@ import { MyErrorHandler } from './app.error-handler';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
+import { Auth, getAuth, provideAuth, signInAnonymously } from '@angular/fire/auth';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,5 +19,12 @@ export const appConfig: ApplicationConfig = {
     {provide: ErrorHandler, useClass: MyErrorHandler},
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
+    provideAuth(() => getAuth()),
+    provideAppInitializer( async () => {
+      // default auth user as Anonymously to enable database 
+      // rules that secire collection write & read
+      const auth = inject(Auth);
+      await signInAnonymously(auth);
+    }),
   ]
 };
