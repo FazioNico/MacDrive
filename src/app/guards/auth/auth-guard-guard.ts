@@ -1,9 +1,13 @@
+import { inject } from '@angular/core';
+import { Auth, authState } from '@angular/fire/auth';
 import { CanActivateFn } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 
 export const authGuardGuard: CanActivateFn = async (route, state): Promise<boolean> => {
-  const isAdmin = Boolean(localStorage.getItem('isAdmin'));
-  if (!isAdmin) {
+  const auth = inject(Auth);
+  const user = await firstValueFrom(authState(auth));
+  if (!user) {
     throw new Error('only available for Admin User');
   }
-  return isAdmin;
+  return true;
 };
