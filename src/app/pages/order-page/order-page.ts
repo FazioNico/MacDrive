@@ -11,6 +11,7 @@ import {
 } from '@angular/forms';
 import { minPriceValidator } from '../../validators/min-price/min-price.validator';
 import { TotalItemPipe } from '../../pipes/total-item/total-item-pipe';
+import { FireService, OrderDataInterface } from '../../services/fire/fire-service';
 
 
 @Component({
@@ -22,6 +23,7 @@ import { TotalItemPipe } from '../../pipes/total-item/total-item-pipe';
 export class OrderPage implements OnInit {
   protected readonly categories = inject(ApiService).categories;
   protected readonly route = inject(ActivatedRoute);
+  private readonly _fireService = inject(FireService);
   protected readonly categorieDisplayed = computed(() => {
     const selectedCategoryUuid = this.selectedCategoryUuid();
     if (!selectedCategoryUuid) {
@@ -77,12 +79,21 @@ export class OrderPage implements OnInit {
     console.log(this.orderForm.value, this.orderForm.valid);
   }
 
-  submitOrder() {
+  async submitOrder() {
     this.orderForm.patchValue({
       createAt: new Date().toISOString(),
     });
-    alert('Order submitted! Check console for order details.');
     console.log(this.orderForm.value, this.orderForm.valid);
+    if (!this.orderForm.valid) {
+      throw new Error('Invalide order value');
+    }
+    const result = await this._fireService.saveOrder(
+      this.orderForm.value as OrderDataInterface
+    );    
+    alert(`Order submitted! Order number is: ${result.id}.`);
+    this.orderForm.reset();
+    (this.orderForm.get('recipes') as FormArray).clear();
+    console.log(this.orderForm.value);
   }
 }
 
