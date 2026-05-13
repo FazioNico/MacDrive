@@ -11,7 +11,7 @@ import { OrderService } from '../../services/order/order-service';
 
 @Component({
   selector: 'app-order-page',
-  imports: [RouterLink, ReactiveFormsModule, TotalItemPipe, TotalOrderPipe, CurrencyPipe],
+  imports: [RouterLink, ReactiveFormsModule, TotalItemPipe],
   templateUrl: './order-page.html',
   styleUrl: './order-page.css',
 })

@@ -15,6 +15,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/checkout-page/checkout-page').then(c => c.CheckoutPage)
   },
   {
+    path: 'success',
+    loadComponent: () => import('./pages/success-page/success-page').then(c => c.SuccessPage)
+  },
+  {
     path: 'admin',
     canActivate: [authGuardGuard],
     children: [

@@ -61,9 +61,8 @@ export class OrderService {
     const result = await this._fireService.saveOrder(
       this.orderForm.value as OrderDataInterface
     );    
-    alert(`Order submitted! Order number is: ${result.id}.`);
     this.orderForm.reset();
     (this.orderForm.get('recipes') as FormArray).clear();
-    console.log(this.orderForm.value);
+    return result.id;
   }
 }
