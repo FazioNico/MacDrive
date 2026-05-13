@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Auth, authState } from '@angular/fire/auth';
-import { addDoc, collection, collectionData, Firestore } from '@angular/fire/firestore';
+import { DocumentSnapshot } from '@angular/fire/compat/firestore';
+import { addDoc, collection, collectionData, doc, Firestore, getDoc } from '@angular/fire/firestore';
 import { firstValueFrom, Observable } from 'rxjs';
 
 export interface OrderDataInterface {
@@ -33,5 +34,12 @@ export class FireService {
     const colRef = collection(this._cloudStorage, `macdrive-orders`);
     const data = collectionData(colRef, {idField: '_id'}) as Observable<OrderDataInterface[]>;
     return data;
+  }
+
+  async getOrderById(id: string) {
+    const docRef = doc(this._cloudStorage, `macdrive-orders/${id}`);
+    const result = await getDoc(docRef)
+    const data = result.data() as Omit<OrderDataInterface, '_id'>;
+    return {...data, _id: result.id};
   }
 }

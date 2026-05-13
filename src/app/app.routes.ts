@@ -11,8 +11,14 @@ export const routes: Routes = [
     component: OrderPage
   },
   {
-    path: 'order-detail-page',
+    path: 'admin',
+    canActivate: [authGuardGuard],
     children: [
+      {
+        path: '',
+        loadComponent: () => import('./pages/admin-page/admin-page')
+                                .then(c => c.AdminPage),
+      },
       {
         path: ':id',
         component: OrderDetail,
@@ -20,19 +26,7 @@ export const routes: Routes = [
           orderDetail: orderDetailResolver
         }
       },
-      {
-        path: '',
-        redirectTo: '/order-page',
-        pathMatch: 'full',
-      }
     ]
-  },
-  {
-    path: 'admin',
-    loadComponent: () => import('./pages/admin-page/admin-page')
-                            .then(c => c.AdminPage),
-    canActivate: [authGuardGuard]
-    // component: AdminPage
   },
   {
     path: '',

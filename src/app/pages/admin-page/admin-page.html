@@ -8,7 +8,7 @@
 @if (orders?.[0]) {
   <ul>
     @for (order of orders; track order._id) {
-      <li>
+      <li [routerLink]="['/admin', order._id]">
         {{order._id}} - {{ order|totalOrder|currency: 'CHF ': 'symbol' : '1.2-2' }}
       </li>
     }
