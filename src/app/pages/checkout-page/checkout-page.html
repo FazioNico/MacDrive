@@ -6,6 +6,13 @@
   }
 </ul>
 
+<p>Do you want sweet?</p>
+<ul>
+  @for (recipe of category()?.recipes; track recipe.uuid) {
+    <li (click)="handleAddRecipe(recipe.uuid)">{{recipe.title}}</li>
+  }
+</ul>
+
 <button routerLink="/order-page">back to order</button>
 <button [disabled]="!orderForm.valid" (click)="handleSubmitOrder()">
   Order Now - {{ $any(orderForm.value) | totalOrder | currency: 'CHF ': 'symbol' : '1.2-2' }}
