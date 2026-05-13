@@ -8,7 +8,11 @@ import { orderDetailResolver } from './resolvers/order-detail/order-detail-resol
 export const routes: Routes = [
   {
     path: 'order-page',
-    component: OrderPage
+    component: OrderPage,
+  },
+  {
+    path: 'checkout',
+    loadComponent: () => import('./pages/checkout-page/checkout-page').then(c => c.CheckoutPage)
   },
   {
     path: 'admin',
