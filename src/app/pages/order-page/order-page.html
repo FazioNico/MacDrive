@@ -1,32 +1,53 @@
 <ion-content>
-  <a routerLink="/admin">go to admin</a>
+  <ion-grid class="fullHeight">
+    <ion-row class="fullHeight">
+      <!-- categories column -->
+      <ion-col size="2">
+        <ion-list>
+          @for (category of categories();let i = $index; track i) {
+            <ion-item (click)="selectedCategoryUuid.set(category.uuid)">
+              <ion-label>
+                {{ category.title }}
+              </ion-label>
+            </ion-item>
+          }
+        </ion-list>
+        <a routerLink="/admin">go to admin</a>
+      </ion-col>
+
+      <!-- recipes column -->
+      <ion-col>
+        <ion-grid>
+          @for (category of categorieDisplayed(); track category.uuid) {
+            <ion-row>
+              @for (recipe of category.recipes; track recipe.uuid) {
+                <ion-col size="4" (click)="addRecipe(recipe.uuid)">
+                  <ion-card>
+                    @if (recipe.imageUrl) {
+                      <ion-card-header>
+                        <ion-img src="{{recipe.imageUrl}}" />
+                      </ion-card-header>
+                    }
+                    <ion-card-content>
+                      <h1>{{ recipe.title }}</h1>
+                      {{ recipe.price }} - Quantity: {{ recipe | totalItem: orderForm.value }}
+                    </ion-card-content>
+                  </ion-card>
+                </ion-col>
+              }
+            </ion-row>
+          }
+        </ion-grid>
+        <div class="order-btn">
+          <ion-button expand="full" [disabled]="!orderForm.valid" routerLink="/checkout">
+            Continue
+          </ion-button>
+        </div>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   
-  <div>
-    <h1>Categories</h1>
-    <ul>
-      @for (category of categories();let i = $index; track i) {
-        <li (click)="selectedCategoryUuid.set(category.uuid)">{{ category.title }}</li>
-      }
-    </ul>
-  </div>
   
-  <div>
-    <h1>Recipes</h1>
-    @for (category of categorieDisplayed(); track category.uuid) {
-      <ul>
-        @for (recipe of category.recipes; track recipe.uuid) {
-          <li (click)="addRecipe(recipe.uuid)">
-            {{ recipe.title }} - {{ recipe.price }} - Quantity: {{ recipe | totalItem: orderForm.value }}
-          </li>
-        }
-      </ul>
-    }
-  </div>
-  
-  <div>
-    <button [disabled]="!orderForm.valid" routerLink="/checkout">
-      Continue
-    </button>
-  </div>
 
 </ion-content>

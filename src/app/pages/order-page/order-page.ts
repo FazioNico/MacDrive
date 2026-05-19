@@ -7,17 +7,28 @@ import { FireService } from '../../services/fire/fire-service';
 import { TotalOrderPipe } from '../../pipes/total-order/total-order-pipe';
 import { CurrencyPipe } from '@angular/common';
 import { OrderService } from '../../services/order/order-service';
-import { IonContent } from '@ionic/angular/standalone';
+import { IonContent, IonButton, IonGrid, IonRow, IonCol, IonList, IonItem, IonLabel, IonFooter, IonCard, IonCardHeader, IonCardContent, IonImg } from '@ionic/angular/standalone';
 
 const IonElements = [
+  IonButton,
   IonContent,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonList,
+  IonItem,
+  IonLabel,
+  IonCard,
+  IonCardHeader,
+  IonCardContent,
+  IonImg,
 ];
 
 @Component({
   selector: 'app-order-page',
   imports: [RouterLink, ReactiveFormsModule, TotalItemPipe, ...IonElements],
   templateUrl: './order-page.html',
-  styleUrl: './order-page.css',
+  styleUrl: './order-page.scss',
 })
 export class OrderPage {
   protected readonly categories = inject(ApiService).categories;
