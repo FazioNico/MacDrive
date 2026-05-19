@@ -1,10 +1,9 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { OrderPage } from './pages/order-page/order-page';
+import { IonRouterOutlet } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [IonRouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

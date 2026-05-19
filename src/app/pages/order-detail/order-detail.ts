@@ -1,10 +1,14 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { OrderDataInterface } from '../../services/fire/fire-service';
+import { IonContent } from '@ionic/angular/standalone';
 
+const IonElements = [
+  IonContent
+];
 @Component({
   selector: 'app-order-detail',
-  imports: [RouterLink],
+  imports: [RouterLink, ...IonElements],
   templateUrl: './order-detail.html',
   styleUrl: './order-detail.css',
 })

@@ -9,6 +9,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import { Auth, getAuth, provideAuth, signInAnonymously } from '@angular/fire/auth';
+import { provideIonicAngular } from '@ionic/angular/standalone';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -26,5 +27,6 @@ export const appConfig: ApplicationConfig = {
       const auth = inject(Auth);
       await signInAnonymously(auth);
     }),
+    provideIonicAngular(),
   ]
 };

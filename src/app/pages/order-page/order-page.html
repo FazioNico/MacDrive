@@ -1,29 +1,32 @@
-<a routerLink="/admin">go to admin</a>
-
-<div>
-  <h1>Categories</h1>
-  <ul>
-    @for (category of categories();let i = $index; track i) {
-      <li (click)="selectedCategoryUuid.set(category.uuid)">{{ category.title }}</li>
-    }
-  </ul>
-</div>
-
-<div>
-  <h1>Recipes</h1>
-  @for (category of categorieDisplayed(); track category.uuid) {
+<ion-content>
+  <a routerLink="/admin">go to admin</a>
+  
+  <div>
+    <h1>Categories</h1>
     <ul>
-      @for (recipe of category.recipes; track recipe.uuid) {
-        <li (click)="addRecipe(recipe.uuid)">
-          {{ recipe.title }} - {{ recipe.price }} - Quantity: {{ recipe | totalItem: orderForm.value }}
-        </li>
+      @for (category of categories();let i = $index; track i) {
+        <li (click)="selectedCategoryUuid.set(category.uuid)">{{ category.title }}</li>
       }
     </ul>
-  }
-</div>
+  </div>
+  
+  <div>
+    <h1>Recipes</h1>
+    @for (category of categorieDisplayed(); track category.uuid) {
+      <ul>
+        @for (recipe of category.recipes; track recipe.uuid) {
+          <li (click)="addRecipe(recipe.uuid)">
+            {{ recipe.title }} - {{ recipe.price }} - Quantity: {{ recipe | totalItem: orderForm.value }}
+          </li>
+        }
+      </ul>
+    }
+  </div>
+  
+  <div>
+    <button [disabled]="!orderForm.valid" routerLink="/checkout">
+      Continue
+    </button>
+  </div>
 
-<div>
-  <button [disabled]="!orderForm.valid" routerLink="/checkout">
-    Continue
-  </button>
-</div>
+</ion-content>

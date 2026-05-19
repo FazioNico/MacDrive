@@ -5,10 +5,14 @@ import { CurrencyPipe } from '@angular/common';
 import { Router, RouterLink } from "@angular/router";
 import { ApiService } from '../../services/api-service/api-service';
 import { Category, Recipe } from '../../interfaces';
+import { IonContent } from '@ionic/angular/standalone';
 
+const IonElements = [
+  IonContent,
+];
 @Component({
   selector: 'app-checkout-page',
-  imports: [TotalOrderPipe, CurrencyPipe, RouterLink],
+  imports: [TotalOrderPipe, CurrencyPipe, RouterLink, ...IonElements],
   templateUrl: './checkout-page.html',
   styleUrl: './checkout-page.css',
 })

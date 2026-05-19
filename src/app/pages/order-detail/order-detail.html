@@ -1,9 +1,11 @@
-<p><b>Order ID: </b>{{orderDetail()?._id}}</p>
-
-<ul>
-  @for (recipe of orderDetail()?.recipes; track recipe.title) {
-    <li>{{recipe.count}}x {{recipe.title}}</li>
-  }
-</ul>
-
-<button routerLink="/admin">back to admin</button>
+<ion-content>
+  <p><b>Order ID: </b>{{orderDetail()?._id}}</p>
+  
+  <ul>
+    @for (recipe of orderDetail()?.recipes; track recipe.title) {
+      <li>{{recipe.count}}x {{recipe.title}}</li>
+    }
+  </ul>
+  
+  <button routerLink="/admin">back to admin</button>
+</ion-content>

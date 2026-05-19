@@ -1,10 +1,14 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { IonContent } from '@ionic/angular/standalone';
 import JSConfetti from 'js-confetti'
 
+const IonElements = [
+  IonContent
+];
 @Component({
   selector: 'app-success-page',
-  imports: [RouterLink],
+  imports: [RouterLink, ...IonElements],
   templateUrl: './success-page.html',
   styleUrl: './success-page.css',
 })

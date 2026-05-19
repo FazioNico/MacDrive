@@ -1,17 +1,20 @@
-@let orders = orders$|async;
-@if (!orders) {
-  <p>loading...</p>
-}
-@if (!orders?.[0] ) {
-  <p>no orders</p>
-}
-@if (orders?.[0]) {
-  <ul>
-    @for (order of orders; track order._id) {
-      <li [routerLink]="['/admin', order._id]">
-        {{order._id}} - {{ order|totalOrder|currency: 'CHF ': 'symbol' : '1.2-2' }}
-      </li>
-    }
-  </ul>
-}
-<button routerLink="/order-page">back to app</button>
+<ion-content>
+
+  @let orders = orders$|async;
+  @if (!orders) {
+    <p>loading...</p>
+  }
+  @if (!orders?.[0] ) {
+    <p>no orders</p>
+  }
+  @if (orders?.[0]) {
+    <ul>
+      @for (order of orders; track order._id) {
+        <li [routerLink]="['/admin', order._id]">
+          {{order._id}} - {{ order|totalOrder|currency: 'CHF ': 'symbol' : '1.2-2' }}
+        </li>
+      }
+    </ul>
+  }
+  <button routerLink="/order-page">back to app</button>
+</ion-content>

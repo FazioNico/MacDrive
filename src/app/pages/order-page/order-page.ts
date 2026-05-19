@@ -7,11 +7,15 @@ import { FireService } from '../../services/fire/fire-service';
 import { TotalOrderPipe } from '../../pipes/total-order/total-order-pipe';
 import { CurrencyPipe } from '@angular/common';
 import { OrderService } from '../../services/order/order-service';
+import { IonContent } from '@ionic/angular/standalone';
 
+const IonElements = [
+  IonContent,
+];
 
 @Component({
   selector: 'app-order-page',
-  imports: [RouterLink, ReactiveFormsModule, TotalItemPipe],
+  imports: [RouterLink, ReactiveFormsModule, TotalItemPipe, ...IonElements],
   templateUrl: './order-page.html',
   styleUrl: './order-page.css',
 })
