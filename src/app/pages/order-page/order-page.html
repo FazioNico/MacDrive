@@ -30,7 +30,7 @@
                     }
                     <ion-card-content>
                       <h1>{{ recipe.title }}</h1>
-                      {{ recipe.price }} - Quantity: {{ recipe | totalItem: orderForm.value }}
+                      {{ recipe.price | formatAmount | currency : 'CHF': 'symbol' : '1.2-2' }} - Quantity: {{ recipe | totalItem: orderForm.value }}
                     </ion-card-content>
                   </ion-card>
                 </ion-col>
@@ -39,7 +39,7 @@
           }
         </ion-grid>
         <div class="order-btn">
-          <ion-button expand="full" [disabled]="!orderForm.valid" routerLink="/checkout">
+          <ion-button color="success" expand="full" [disabled]="!orderForm.valid" routerLink="/checkout">
             Continue
           </ion-button>
         </div>

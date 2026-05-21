@@ -8,6 +8,7 @@ import { TotalOrderPipe } from '../../pipes/total-order/total-order-pipe';
 import { CurrencyPipe } from '@angular/common';
 import { OrderService } from '../../services/order/order-service';
 import { IonContent, IonButton, IonGrid, IonRow, IonCol, IonList, IonItem, IonLabel, IonFooter, IonCard, IonCardHeader, IonCardContent, IonImg } from '@ionic/angular/standalone';
+import { FormatAmountPipe } from '../../pipes/format-amount/format-amount-pipe';
 
 const IonElements = [
   IonButton,
@@ -26,7 +27,7 @@ const IonElements = [
 
 @Component({
   selector: 'app-order-page',
-  imports: [RouterLink, ReactiveFormsModule, TotalItemPipe, ...IonElements],
+  imports: [RouterLink, ReactiveFormsModule, TotalItemPipe, CurrencyPipe, FormatAmountPipe, ...IonElements],
   templateUrl: './order-page.html',
   styleUrl: './order-page.scss',
 })
