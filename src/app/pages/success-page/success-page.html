@@ -1,5 +1,35 @@
-<ion-content>
-  <h1>Congrate!</h1>
-  <p>Your order {{orderId()}} is soon ready</p>
-  <button routerLink="/">back to orderPage</button>
+<ion-content class="success-page">
+  <ion-grid fixed class="success-grid">
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="12" sizeMd="8" sizeLg="6">
+        <ion-card>
+          <ion-card-header>
+            <p class="eyebrow">Order confirmed</p>
+            <h1 class="page-title">Thanks, your order is in the kitchen.</h1>
+            <p class="section-copy">
+              We have received your checkout and the team is preparing it now.
+            </p>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-list inset aria-label="Order status">
+              <ion-item>
+                <ion-label>Status</ion-label>
+                <strong slot="end">In preparation</strong>
+              </ion-item>
+
+              <ion-item>
+                <ion-label>Order reference</ion-label>
+                <strong slot="end">{{ orderId() || 'Pending confirmation' }}</strong>
+              </ion-item>
+            </ion-list>
+
+            <ion-button expand="block" routerLink="/order-page">
+              Start a new order
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
