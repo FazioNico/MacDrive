@@ -1,0 +1,32 @@
+:host {
+	display: block;
+}
+
+.order-detail-page {
+	--background: var(--ion-color-light);
+}
+
+.order-detail-grid {
+	padding: 16px 0 32px;
+}
+
+.eyebrow {
+	margin: 0 0 8px;
+	font-size: 0.78rem;
+	font-weight: 700;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--ion-color-medium);
+}
+
+.page-title {
+	margin: 0;
+	font-size: clamp(2rem, 4vw, 3rem);
+	line-height: 1;
+}
+
+.section-copy {
+	margin: 12px 0 0;
+	color: var(--ion-color-medium);
+	line-height: 1.5;
+}

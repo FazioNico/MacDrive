@@ -1,20 +1,57 @@
-<ion-content>
+<ion-content class="admin-page">
+  @let orders = orders$ | async;
 
-  @let orders = orders$|async;
-  @if (!orders) {
-    <p>loading...</p>
-  }
-  @if (!orders?.[0] ) {
-    <p>no orders</p>
-  }
-  @if (orders?.[0]) {
-    <ul>
-      @for (order of orders; track order._id) {
-        <li [routerLink]="['/admin', order._id]">
-          {{order._id}} - {{ order|totalOrder|currency: 'CHF ': 'symbol' : '1.2-2' }}
-        </li>
-      }
-    </ul>
-  }
-  <button routerLink="/order-page">back to app</button>
+  <ion-grid fixed class="admin-grid">
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" sizeLg="8">
+        <ion-card>
+          <ion-card-header>
+            <p class="eyebrow">Admin</p>
+            <h1 class="page-title">Incoming orders</h1>
+            <p class="section-copy">
+              Track live orders and open each ticket to review its full details.
+            </p>
+          </ion-card-header>
+
+          <ion-card-content>
+            @if (!orders) {
+              <div class="state-block">
+                <ion-spinner name="crescent"></ion-spinner>
+                <p>Loading orders...</p>
+              </div>
+            } @else if (!orders.length) {
+              <div class="state-block">
+                <p>No orders yet.</p>
+              </div>
+            } @else {
+              <ion-list inset aria-label="Order list">
+                @for (order of orders; track order._id) {
+                  <ion-item
+                    button
+                    detail="true"
+                    [routerLink]="['/admin', order._id]"
+                    (keydown.enter)="null"
+                    [attr.aria-label]="'Open order ' + order._id"
+                  >
+                    <ion-label>
+                      <h2>{{ order._id }}</h2>
+                      <p>{{ order.recipes.length }} items</p>
+                    </ion-label>
+
+                    <strong slot="end">
+                      {{ order | totalOrder | currency : 'CHF ' : 'symbol' : '1.2-2' }}
+                    </strong>
+                  </ion-item>
+                }
+              </ion-list>
+            }
+
+            <ion-button fill="clear" routerLink="/order-page">
+              Back to app
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

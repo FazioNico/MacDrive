@@ -1,11 +1,68 @@
-<ion-content>
-  <p><b>Order ID: </b>{{orderDetail()?._id}}</p>
-  
-  <ul>
-    @for (recipe of orderDetail()?.recipes; track recipe.title) {
-      <li>{{recipe.count}}x {{recipe.title}}</li>
-    }
-  </ul>
-  
-  <button routerLink="/admin">back to admin</button>
+<ion-content class="order-detail-page">
+  @let order = orderDetail();
+
+  <ion-grid fixed class="order-detail-grid">
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="12" sizeLg="8">
+        <ion-card>
+          <ion-card-header>
+            <p class="eyebrow">Order detail</p>
+            <h1 class="page-title">Review order {{ order?._id }}</h1>
+            <p class="section-copy">
+              Full breakdown of the selected order for admin review.
+            </p>
+          </ion-card-header>
+
+          <ion-card-content>
+            @if (order) {
+              <ion-list inset aria-label="Order metadata">
+                <ion-item>
+                  <ion-label>Order reference</ion-label>
+                  <strong slot="end">{{ order._id }}</strong>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Customer UID</ion-label>
+                  <strong slot="end">{{ order.uid }}</strong>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Created at</ion-label>
+                  <strong slot="end">{{ order.createAt }}</strong>
+                </ion-item>
+              </ion-list>
+
+              <ion-list inset aria-label="Order items">
+                @for (recipe of order.recipes; track recipe.uuid) {
+                  <ion-item>
+                    <ion-label>
+                      <h2>{{ recipe.title }}</h2>
+                      <p>
+                        {{ recipe.count }} x {{ recipe.price / 100 | currency : 'CHF ' : 'symbol' : '1.2-2' }}
+                      </p>
+                    </ion-label>
+
+                    <strong slot="end">
+                      {{ (recipe.count * recipe.price) / 100 | currency : 'CHF ' : 'symbol' : '1.2-2' }}
+                    </strong>
+                  </ion-item>
+                }
+              </ion-list>
+
+              <ion-list inset aria-label="Order total">
+                <ion-item>
+                  <ion-label>
+                    <strong>Total</strong>
+                  </ion-label>
+                  <strong slot="end">{{ order | totalOrder | currency : 'CHF ' : 'symbol' : '1.2-2' }}</strong>
+                </ion-item>
+              </ion-list>
+            }
+
+            <ion-button fill="clear" routerLink="/admin">
+              Back to admin
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
