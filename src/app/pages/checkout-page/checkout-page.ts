@@ -1,17 +1,28 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { OrderService } from '../../services/order/order-service';
 import { TotalOrderPipe } from '../../pipes/total-order/total-order-pipe';
 import { CurrencyPipe } from '@angular/common';
 import { Router, RouterLink } from "@angular/router";
 import { ApiService } from '../../services/api-service/api-service';
-import { Category, Recipe } from '../../interfaces';
-import { IonContent } from '@ionic/angular/standalone';
+import { Category } from '../../interfaces';
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCol, IonContent, IonGrid, IonItem, IonLabel, IonList, IonRow } from '@ionic/angular/standalone';
 
 const IonElements = [
+  IonButton,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCol,
   IonContent,
+  IonGrid,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonRow,
 ];
 @Component({
   selector: 'app-checkout-page',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [TotalOrderPipe, CurrencyPipe, RouterLink, ...IonElements],
   templateUrl: './checkout-page.html',
   styleUrl: './checkout-page.css',

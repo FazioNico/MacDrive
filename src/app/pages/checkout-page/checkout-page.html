@@ -1,22 +1,113 @@
-<ion-content>
+<ion-content class="checkout-page">
+  <ion-grid fixed class="checkout-grid">
+    <ion-row class="ion-align-items-start">
+      <ion-col size="12" sizeLg="7">
+        <ion-card>
+          <ion-card-header>
+            <p class="eyebrow">Checkout</p>
+            <h1 class="page-title">Finalize your order</h1>
+            <p class="section-copy">
+              Review your items, add a few extras, and confirm in one clean flow.
+            </p>
+          </ion-card-header>
 
-  <p>Your order detail:</p>
-  
-  <ul>
-    @for (recipe of orderForm.value.recipes; track recipe.uuid) {
-      <li>{{recipe.count}}x {{recipe.title}}</li>
-    }
-  </ul>
-  
-  <p>Do you want sweet?</p>
-  <ul>
-    @for (recipe of category()?.recipes; track recipe.uuid) {
-      <li (click)="handleAddRecipe(recipe.uuid)">{{recipe.title}}</li>
-    }
-  </ul>
-  
-  <button routerLink="/order-page">back to order</button>
-  <button [disabled]="!orderForm.valid" (click)="handleSubmitOrder()">
-    Order Now - {{ $any(orderForm.value) | totalOrder | currency: 'CHF ': 'symbol' : '1.2-2' }}
-  </button>
+          <ion-card-content>
+            <ion-list inset aria-label="Order items">
+              @if (orderForm.value.recipes?.length) {
+                @for (recipe of orderForm.value.recipes; track recipe.uuid) {
+                  <ion-item>
+                    <ion-label>
+                      <h2>{{ recipe.title }}</h2>
+                      <p>
+                        {{ recipe.count }} x {{ recipe.price / 100 | currency : 'CHF ' : 'symbol' : '1.2-2' }}
+                      </p>
+                    </ion-label>
+
+                    <div slot="end" class="price-stack">
+                      <strong>{{ (recipe.count * recipe.price) / 100 | currency : 'CHF ' : 'symbol' : '1.2-2' }}</strong>
+                    </div>
+                  </ion-item>
+                }
+              } @else {
+                <ion-item lines="none">
+                  <ion-label>
+                    <h2>Your cart is empty</h2>
+                    <p>Add items from the menu before checkout.</p>
+                  </ion-label>
+                </ion-item>
+              }
+            </ion-list>
+
+            <ion-list inset aria-label="Order totals">
+              <ion-item>
+                <ion-label>Subtotal</ion-label>
+                <strong slot="end">{{ $any(orderForm.value) | totalOrder | currency : 'CHF ' : 'symbol' : '1.2-2' }}</strong>
+              </ion-item>
+              <ion-item>
+                <ion-label>Service</ion-label>
+                <span slot="end">Included</span>
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  <strong>Total</strong>
+                </ion-label>
+                <strong slot="end">{{ $any(orderForm.value) | totalOrder | currency : 'CHF ' : 'symbol' : '1.2-2' }}</strong>
+              </ion-item>
+            </ion-list>
+
+            <ion-button fill="clear" routerLink="/order-page">
+              Edit cart
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="12" sizeLg="5">
+        <ion-card>
+          <ion-card-header>
+            <p class="eyebrow">Recommended</p>
+            <h2 class="section-title">Add something extra</h2>
+            <p class="section-copy">Tap an item to add it instantly to your order.</p>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-list inset aria-label="Recommended extras">
+              @for (recipe of category()?.recipes ?? []; track recipe.uuid) {
+                <ion-item
+                  button
+                  detail="false"
+                  (click)="handleAddRecipe(recipe.uuid)"
+                  (keydown.enter)="handleAddRecipe(recipe.uuid)"
+                  (keydown.space)="handleAddRecipe(recipe.uuid)"
+                  [attr.aria-label]="'Add ' + recipe.title + ' to order'"
+                >
+                  <ion-label>
+                    <h3>{{ recipe.title }}</h3>
+                    @if (recipe.description) {
+                      <p>{{ recipe.description }}</p>
+                    }
+                  </ion-label>
+
+                  <div slot="end" class="price-stack">
+                    <strong>{{ recipe.price / 100 | currency : 'CHF ' : 'symbol' : '1.2-2' }}</strong>
+                    <span class="action-copy">Add</span>
+                  </div>
+                </ion-item>
+              }
+            </ion-list>
+
+            <ion-button
+              expand="block"
+              color="dark"
+              [disabled]="!orderForm.valid"
+              (click)="handleSubmitOrder()"
+              (keydown.enter)="handleSubmitOrder()"
+            >
+              Confirm order · {{ $any(orderForm.value) | totalOrder | currency : 'CHF ' : 'symbol' : '1.2-2' }}
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

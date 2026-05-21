@@ -1,0 +1,49 @@
+:host {
+	display: block;
+  
+  .checkout-page {
+    --background: var(--ion-color-light);
+  }
+  
+  .checkout-grid {
+    padding: 16px 0 32px;
+  }
+  
+  .eyebrow {
+    margin: 0 0 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ion-color-medium);
+  }
+  
+  .page-title,
+  .section-title {
+    margin: 0;
+  }
+  
+  .page-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1;
+  }
+  
+  .section-copy {
+    margin: 12px 0 0;
+    color: var(--ion-color-medium);
+    line-height: 1.5;
+  }
+  
+  .price-stack {
+    display: grid;
+    justify-items: end;
+    gap: 4px;
+    white-space: nowrap;
+  }
+  
+  .action-copy {
+    color: var(--ion-color-primary);
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+}
