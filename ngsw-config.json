@@ -24,5 +24,15 @@
         "files": ["/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"]
       }
     }
+  ],
+  "dataGroups": [
+    {
+      "name": "API",
+      "urls": ["resto-data.json"],
+      "cacheConfig": {
+        "maxAge": "1d",
+        "maxSize": 1
+      }
+    }
   ]
 }
