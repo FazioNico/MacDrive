@@ -26,7 +26,8 @@ export const appConfig: ApplicationConfig = {
       // default auth user as Anonymously to enable database 
       // rules that secire collection write & read
       const auth = inject(Auth);
-      await signInAnonymously(auth);
+      // do not use `await` with `signInAnonymously` into appInitializer
+      signInAnonymously(auth); 
     }),
     provideIonicAngular(),
     provideServiceWorker('ngsw-worker.js', {
