@@ -1,10 +1,11 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit, signal } from '@angular/core';
 import { Auth, signInAnonymously } from '@angular/fire/auth';
 import { IonRouterOutlet } from '@ionic/angular/standalone';
+import { UpdatesNotificationComponent } from './app-updates-notification';
 
 @Component({
   selector: 'app-root',
-  imports: [IonRouterOutlet],
+  imports: [IonRouterOutlet, UpdatesNotificationComponent],
   templateUrl: './app.html',
   styleUrl: './app.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

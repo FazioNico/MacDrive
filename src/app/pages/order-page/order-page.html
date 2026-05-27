@@ -3,6 +3,7 @@
     <ion-row class="fullHeight">
       <!-- categories column -->
       <ion-col size="2">
+        <p>Updated 8</p>
         <ion-list>
           @for (category of categories();let i = $index; track i) {
             <ion-item (click)="selectedCategoryUuid.set(category.uuid)">
